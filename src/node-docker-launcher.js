@@ -1,20 +1,12 @@
-/*============ DEPENDENCIES ============*/
-
 const shell = require('shelljs');
 const _ = require('lodash');
 
-/*============ CLASS DEFINITION ============*/
-
 class NodeDockerLauncher {
-
-  /*============ PROPERTIES ============*/
 
   dockerImageName = null;
   dockerId = null;
   paramsString = null;
 
-
-  /*============ CONSTRUCTOR ============*/
 
   constuctor (dockerImageName, dockerId, params) {
     this.dockerImageName = dockerImageName;
@@ -24,9 +16,6 @@ class NodeDockerLauncher {
       return `${key}=${value}`;
     }).join(' ');
   }
-
-
-  /*============ METHODS ============*/
 
   getStatus = () => {
     return new Promise(function (resolve, reject) {
@@ -152,7 +141,5 @@ class NodeDockerLauncher {
   };
 
 }
-
-/*============ MODULE EXPORTS ============*/
 
 module.exports = NodeDockerLauncher;
