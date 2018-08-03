@@ -23,7 +23,7 @@ const dotenv = require('dotenv');
 const shell = require("shelljs");
 const _ = require('lodash');
 
-const DockerHelper = require('node-docker-launcher');
+const NodeDockerLauncher = require('node-docker-launcher');
 
 
 /*============ PRIVATE VARIABLES AND METHODS ============*/
@@ -39,8 +39,8 @@ const NEO4J_LOGS_DIRECTORY = process.env.NEO4J_LOGS_DIRECTORY; // can be custom 
 const MONGODB_PORT = process.env.MONGODB_PORT;
 
 const ensureDockerRunning = (dockerImageName, dockerId, params) => {
-  const dockerHelper = new DockerHelper(dockerImageName, dockerId, params);
-  return dockerHelper.run();
+  const nodeDockerLauncher = new NodeDockerLauncher(dockerImageName, dockerId, params);
+  return nodeDockerLauncher.run();
 };
 
 
