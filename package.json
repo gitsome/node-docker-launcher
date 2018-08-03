@@ -1,0 +1,63 @@
+{
+  "name": "node-docker-launcher",
+  "version": "1.0.0",
+  "description": "nodejs utility to ensure docker images are loaded and initialized",
+  "main": "index.js",
+  "scripts": {
+    "precommit": "lint-staged",
+    "test": "eslint . && jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gitsome/nodejs-docker-launcher.git"
+  },
+  "author": "john david martin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gitsome/nodejs-docker-launcher/issues"
+  },
+  "homepage": "https://github.com/gitsome/nodejs-docker-launcher#readme",
+  "devDependencies": {
+    "babel-eslint": "^8.2.6",
+    "eslint": "^4.19.1",
+    "eslint-plugin-jest": "^21.15.0",
+    "eslint-plugin-node": "^6.0.1",
+    "husky": "^0.14.3",
+    "jest": "^22.4.3",
+    "lint-staged": "^7.0.0"
+  },
+  "eslintConfig": {
+    "env": {
+      "es6": true,
+      "node": true
+    },
+    "globals": {
+      "jest/globals": true
+    },
+    "parserOptions": {
+      "ecmaVersion": 2018
+    },
+    "plugins": [
+      "jest",
+      "node"
+    ],
+    "extends": [
+      "eslint:recommended",
+      "plugin:jest/recommended",
+      "plugin:node/recommended"
+    ]
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "dependencies": {
+    "lodash": "^4.17.10",
+    "shelljs": "^0.8.2"
+  }
+}
