@@ -7,9 +7,6 @@
     "jest/globals": true
   },
   "parser": "babel-eslint",
-  "parserOptions": {
-      "ecmaVersion": 2018
-  },
   "plugins": ["jest","node"],
   "extends": ["eslint:recommended", "plugin:jest/recommended", "plugin:node/recommended"],
   "rules": {
