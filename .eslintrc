@@ -1,12 +1,10 @@
 {
   "env": {
-    "es6": true,
     "node": true
   },
   "globals": {
     "jest/globals": true
   },
-  "parser": "babel-eslint",
   "plugins": ["jest","node"],
   "extends": ["eslint:recommended", "plugin:jest/recommended", "plugin:node/recommended"],
   "rules": {
