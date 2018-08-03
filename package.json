@@ -2,7 +2,7 @@
   "name": "node-docker-launcher",
   "version": "1.0.0",
   "description": "nodejs utility to ensure docker images are loaded and initialized",
-  "main": "node-docker-launcher.js",
+  "main": "src/node-docker-launcher.js",
   "scripts": {
     "precommit": "lint-staged",
     "test": "eslint . && jest"

@@ -3,11 +3,6 @@ const _ = require('lodash');
 
 class NodeDockerLauncher {
 
-  dockerImageName = null;
-  dockerId = null;
-  paramsString = null;
-
-
   constuctor (dockerImageName, dockerId, params) {
     this.dockerImageName = dockerImageName;
     this.dockerId = dockerId;
@@ -17,7 +12,7 @@ class NodeDockerLauncher {
     }).join(' ');
   }
 
-  getStatus = () => {
+  getStatus () {
     return new Promise(function (resolve, reject) {
 
       const statusCommand = `docker inspect ${this.dockerId}`;
@@ -36,9 +31,9 @@ class NodeDockerLauncher {
         }
       });
     });
-  };
+  }
 
-  getStatusUntil = (status, attempts, interval, onSuccess, onFailure) => {
+  getStatusUntil (status, attempts, interval, onSuccess, onFailure) {
 
     let currentAttempt = 0;
     let firstTry = true;
@@ -68,9 +63,9 @@ class NodeDockerLauncher {
     };
 
     doAttempt();
-  };
+  }
 
-  create = () => {
+  create () {
     return new Promise((resolve, reject) => {
 
       const createCommand = `docker create --name=${this.dockerId} ${this.paramsString} ${this.dockerImageName}`;
@@ -87,9 +82,9 @@ class NodeDockerLauncher {
         }
       });
     });
-  };
+  }
 
-  start = () => {
+  start () {
     return new Promise((resolve, reject) => {
 
       const startCommand = `docker start ${this.dockerId}`;
@@ -112,9 +107,9 @@ class NodeDockerLauncher {
       });
 
     });
-  };
+  }
 
-  run = () => {
+  run () {
 
     return new Promise((resolve, reject) => {
 
@@ -138,8 +133,7 @@ class NodeDockerLauncher {
       });
 
     });
-  };
-
+  }
 }
 
 module.exports = NodeDockerLauncher;
