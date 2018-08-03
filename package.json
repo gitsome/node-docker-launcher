@@ -2,7 +2,7 @@
   "name": "node-docker-launcher",
   "version": "1.0.0",
   "description": "nodejs utility to ensure docker images are loaded and initialized",
-  "main": "index.js",
+  "main": "node-docker-launcher.js",
   "scripts": {
     "precommit": "lint-staged",
     "test": "eslint . && jest"
@@ -25,27 +25,6 @@
     "husky": "^0.14.3",
     "jest": "^22.4.3",
     "lint-staged": "^7.0.0"
-  },
-  "eslintConfig": {
-    "env": {
-      "es6": true,
-      "node": true
-    },
-    "globals": {
-      "jest/globals": true
-    },
-    "parserOptions": {
-      "ecmaVersion": 2018
-    },
-    "plugins": [
-      "jest",
-      "node"
-    ],
-    "extends": [
-      "eslint:recommended",
-      "plugin:jest/recommended",
-      "plugin:node/recommended"
-    ]
   },
   "lint-staged": {
     "*.js": [

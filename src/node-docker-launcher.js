@@ -11,11 +11,7 @@ class NodeDockerLauncher {
 
   dockerImageName = null;
   dockerId = null;
-
   paramsString = null;
-  statusCommand = null;
-  createCommand = null;
-  startCommand = null;
 
 
   /*============ CONSTRUCTOR ============*/
@@ -27,10 +23,6 @@ class NodeDockerLauncher {
     this.paramsString = _.map(params, function (value, key) {
       return `${key}=${value}`;
     }).join(' ');
-
-    this.statusCommand = `docker inspect ${this.dockerId}`;
-    this.createCommand = `docker create --name=${this.dockerId} ${this.paramsString} ${this.dockerImageName}`;
-    this.startCommand = `docker start ${this.dockerId}`;
   }
 
 
@@ -39,7 +31,9 @@ class NodeDockerLauncher {
   getStatus = () => {
     return new Promise(function (resolve, reject) {
 
-      const status_childProcess = shell.exec(this.statusCommand, {silent: true}, function(code, stdout, stderr) {
+      const statusCommand = `docker inspect ${this.dockerId}`;
+
+      shell.exec(statusCommand, {silent: true}, function(code, stdout, stderr) {
 
         if (code === 0) {
 
@@ -67,7 +61,7 @@ class NodeDockerLauncher {
       if (currentAttempt >= attempts) {
         onFailure();
       } else {
-        getStatus().then((statusCheck) => {
+        this.getStatus().then((statusCheck) => {
 
           if (statusCheck === status) {
             onSuccess();
@@ -90,7 +84,9 @@ class NodeDockerLauncher {
   create = () => {
     return new Promise((resolve, reject) => {
 
-      const status_childProcess = shell.exec(this.createCommand, {silent: true}, function(code, stdout, stderr) {
+      const createCommand = `docker create --name=${this.dockerId} ${this.paramsString} ${this.dockerImageName}`;
+
+      shell.exec(createCommand, {silent: true}, function(code, stdout, stderr) {
 
         if (code === 0) {
 
@@ -107,13 +103,15 @@ class NodeDockerLauncher {
   start = () => {
     return new Promise((resolve, reject) => {
 
-      const start_childProcess = shell.exec(this.startCommand, {silent: true}, (code, stdout, stderr) => {
+      const startCommand = `docker start ${this.dockerId}`;
+
+      shell.exec(startCommand, {silent: true}, (code, stdout, stderr) => {
 
         if (code === 0) {
 
           console.log('Docker' + this.dockerId + ' ...starting');
 
-          getStatusUntil('running', 10, 1000, function () {
+          this.getStatusUntil('running', 10, 1000, function () {
             console.log('Docker ' + this.dockerId + ' ...start complete');
             resolve();
           }, reject);
@@ -131,7 +129,7 @@ class NodeDockerLauncher {
 
     return new Promise((resolve, reject) => {
 
-      getStatus().then((status) => {
+      this.getStatus().then((status) => {
 
         if (status === 'running') {
 
@@ -140,12 +138,12 @@ class NodeDockerLauncher {
 
         } else if (status === 'stopped' || status === 'exited' || status === 'created') {
 
-          return start().then(resolve, reject);
+          return this.start().then(resolve, reject);
 
           // never created
         } else if (status === 'notcreated') {
-          return create()
-            .then(start)
+          return this.create()
+            .then(this.start)
             .then(resolve, reject);
         }
       });
@@ -153,7 +151,7 @@ class NodeDockerLauncher {
     });
   };
 
-};
+}
 
 /*============ MODULE EXPORTS ============*/
 
